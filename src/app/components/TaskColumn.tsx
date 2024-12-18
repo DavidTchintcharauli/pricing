@@ -10,9 +10,10 @@ interface TaskColumnProps {
   tasks: Task[];
   activeTaskId?: number | null;
   onTaskClick: (task: Task) => void;
+  onTaskContextMenu: (event: React.MouseEvent, task: Task) => void
 }
 
-export default function TaskColumn({ status, tasks, activeTaskId, onTaskClick  }: TaskColumnProps) {
+export default function TaskColumn({ status, tasks, activeTaskId, onTaskClick, onTaskContextMenu }: TaskColumnProps) {
   const { setNodeRef } = useDroppable({ id: status });
 
   return (
@@ -20,7 +21,7 @@ export default function TaskColumn({ status, tasks, activeTaskId, onTaskClick  }
       ref={setNodeRef}
       className={`p-4 rounded-lg shadow ${
         status === 'To Do' ? 'bg-gray-100' : status === 'In Progress' ? 'bg-yellow-100' : 'bg-green-100'
-      }`}
+      } min-h-screen`}
     >
       <h2 className="text-xl font-semibold mb-4 text-center">{status}</h2>
       <SortableContext items={tasks.map((task) => task.id)} strategy={verticalListSortingStrategy}>
@@ -30,6 +31,8 @@ export default function TaskColumn({ status, tasks, activeTaskId, onTaskClick  }
               key={task.id}
               task={task}
               onClick={onTaskClick}
+              onContextMenu={(event) => onTaskContextMenu(event, task)}
+              isDragging={task.id === activeTaskId}
             />
           ))}
         </div>

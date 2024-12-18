@@ -7,14 +7,17 @@ import { Task } from '../task/interface/Task';
 interface TaskCardProps {
   task: Task;
   onClick: (task: Task) => void;
+  onContextMenu?: (event: React.MouseEvent) => void;
+  isDragging?: boolean;
 }
 
-export default function TaskCard({ task, onClick }: TaskCardProps) {
+export default function TaskCard({ task, onClick, onContextMenu, isDragging = false }: TaskCardProps) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: task.id });
 
   const style: React.CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
+    visibility: isDragging ? 'hidden' : 'visible',
   };
 
   return (
@@ -22,6 +25,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
       ref={setNodeRef}
       {...attributes}
       {...listeners}
+      onContextMenu={onContextMenu}
       style={style}
       className="border p-4 rounded bg-white shadow cursor-pointer hover:bg-gray-100"
       onClick={(e) => {

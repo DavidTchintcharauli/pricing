@@ -9,10 +9,10 @@ export const useTasks = () => {
 
   useEffect(() => {
     const savedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-      const sanitizedTasks = savedTasks.map((task: Task) => ({
-    ...task,
-    status: validStatuses.includes(task.status) ? task.status : 'To Do',
-  }));
+    const sanitizedTasks = savedTasks.map((task: Task) => ({
+      ...task,
+      status: validStatuses.includes(task.status) ? task.status : 'To Do',
+    }));
     setTasks(savedTasks);
   }, []);
 
@@ -32,5 +32,9 @@ export const useTasks = () => {
     );
   };
 
-  return { tasks, addTask, updateTaskStatus };
+  const deleteTask = (taskId: number) => {
+    setTasks((prev) => prev.filter((task) => task.id !== taskId));
+  };
+
+  return { tasks, addTask, updateTaskStatus, deleteTask };
 };
