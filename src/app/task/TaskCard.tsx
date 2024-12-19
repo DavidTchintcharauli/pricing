@@ -2,14 +2,8 @@
 
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Task } from '../task/interface/Task';
-
-interface TaskCardProps {
-  task: Task;
-  onClick: (task: Task) => void;
-  onContextMenu?: (event: React.MouseEvent) => void;
-  isDragging?: boolean;
-}
+import { Task } from './interface/Task';
+import { TaskCardProps } from './interface/TaskCardProps';
 
 export default function TaskCard({ task, onClick, onContextMenu, isDragging = false }: TaskCardProps) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: task.id });

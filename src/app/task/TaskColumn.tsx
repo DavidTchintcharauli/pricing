@@ -3,7 +3,7 @@
 import TaskCard from './TaskCard';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useDroppable } from '@dnd-kit/core';
-import { Task } from '../task/interface/Task';
+import { Task } from './interface/Task';
 
 interface TaskColumnProps {
   status: Task['status'];

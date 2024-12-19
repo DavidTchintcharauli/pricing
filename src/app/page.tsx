@@ -9,9 +9,13 @@ export default function Home() {
     setIsClient(true);
   }, []);
 
+let c: any = console.log('Publishable Key:', process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
+
   return (
       <div>
         {isClient ? 'Client Rendered to index page' : 'Server Rendered'}
+        {c}
       </div>
   );
 }
